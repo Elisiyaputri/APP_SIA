@@ -103,11 +103,11 @@
                                         <div class="row mb-3">
                                             <div class="col-md-4">
                                                 <label for="invoice" class="form-label">Invoice</label>
-                                                <input type="text" class="form-control" name="invoice" vaue="BL110324" disabled>
+                                                <input type="text" class="form-control" name="invoice" value="BL110324" disabled>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="tanggal" class="form-label">Tanggal</label>
-                                                <input type="date" class="form-control" name="tanggal" vaue="2024-11-03">
+                                                <input type="date" class="form-control" name="tanggal" value="2024-11-03">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="suplier" class="form-label">Suplier</label> 
