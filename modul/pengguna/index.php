@@ -3,35 +3,23 @@
     <div class="card-body">
         <form action="" method="post">
             <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" name="username">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-                <div class="col-md-4">
-                    <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" name="nama_lengkap">
+                    <input type="text" class="form-control" name="password">
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <label for="level" class="form-label">Level</label>
+                    <input type="text" class="form-control" name="level">
+                </div>
+                <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email">
-                </div>
-                <div class="col-md-4">
-                    <label for="jabatan" class="form-label">Jabatan</label>
-                    <input type="text" class="form-control" name="jabatan">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" for="hak_akses">Hak Akses</label>
-                    <select class="form-select" name="hak_akses">
-                        <option value="admin">Admin</option>
-                        <option value="pimpinan">Pimpinan</option>
-                        <option value="Karyawan">Karyawan</option>
-                    </select>
+                    <input type="text" class="form-control" name="email">
                 </div>
             </div>
             <hr class="text-secondary">
@@ -53,21 +41,17 @@
                     <tr>
                         <th>#</th>
                         <th>Username</th>
-                        <th>Nama Lengkap</th>
+                        <th>Level</th>
                         <th>Email</th>
-                        <th>Jabatan</th>
-                        <th>Hak Akses</th>
                         <th><i class="bi bi-gear-fill"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Administrator</td>
-                        <td>Elisiya Putri</td>
+                        <td>admin</td>
+                        <td>admin</td>
                         <td>pelisya30@gmail.com</td>
-                        <td>Admin</td>
-                        <td>Admin</td>
                         <td>
                             <a href="#editPengguna" class="text-decoration-none" data-bs-toggle="modal">
                                 <i class="bi bi-pencil-square text-success"></i>
@@ -92,32 +76,27 @@
                                                 <div class="col-md-6">
                                                     <label for="username" class="form-label">Username</label>
                                                     <input type="text" class="form-control" name="username"
-                                                        value="administrator">
+                                                        value="admin">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                                    <input type="text" class="form-control" name="nama_lengkap"
-                                                        value="Elisiya Putri">
+                                                    <label for="password" class="form-label">Password</label>
+                                                    <input type="text" class="form-control" name="password">
+                                                    <span class="form-text text-muted">Kosongkan jika tidak ingin
+                                                        mengganti password</span>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" name="email"
-                                                        value="pelisya30@gmail.com">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="jabatan" class="form-label">Jabatan</label>
-                                                    <input type="text" class="form-control" name="jabatan"
-                                                        value="Admin">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label" for="hak_akses">Hak Akses</label>
-                                                    <select class="form-select" name="hak_akses">
+                                                <div class="col-md-6">
+                                                    <label for="level" class="form-label">Level</label>
+                                                    <select name="level" class="form-select">
                                                         <option value="admin" selected>Admin</option>
-                                                        <option value="pimpinan">Pimpinan</option>
-                                                        <option value="Karyawan">Karyawan</option>
+                                                        <option value="user">User</option>
                                                     </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="text" class="form-control" name="email"
+                                                        value="pelisya30@gmail.com">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,11 +112,9 @@
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>pimpinan123</td>
-                        <td>erika</td>
+                        <td>user</td>
+                        <td>user</td>
                         <td>erikaa11@gmail.com</td>
-                        <td>Pimpinan</td>
-                        <td>Pimpinan</td>
                         <td>
                             <a href="" class="text-decoration-none">
                                 <i class="bi bi-pencil-square text-success"></i>
