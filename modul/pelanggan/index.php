@@ -4,8 +4,8 @@
         <form action="" method="post">
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="pelanggan" class="form-label">Nama Pelanggan</label>
-                    <input type="text" class="form-control" name="pelanggan">
+                    <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                    <input type="text" class="form-control" name="nama_pelanggan">
                 </div>
                 <div class="col-md-6">
                     <label for="alamat" class="form-label">Alamat</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="text" class="form-control" name="email">
                 </div>
             </div>
             <hr class="text-secondary">
@@ -76,8 +76,9 @@
                                         <div class="modal-body">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <label for="pelanggan" class="form-label">Nama Pelanggan</label>
-                                                    <input type="text" class="form-control" name="pelanggan"
+                                                    <label for="nama_pelanggan" class="form-label">Nama
+                                                        Pelanggan</label>
+                                                    <input type="text" class="form-control" name="nama_pelanggan"
                                                         value="PT Sejahtera">
                                                 </div>
                                                 <div class="col-md-6">
