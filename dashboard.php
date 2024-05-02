@@ -1,3 +1,8 @@
+<?php
+require_once('koneksi.php');
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -29,7 +34,7 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
-                            Administrator
+                            <?=$_SESSION['nama_lengkap']; ?>
                         </button>
                         <ul class="dropdown-menu">
                             <li>
