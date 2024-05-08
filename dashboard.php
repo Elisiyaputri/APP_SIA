@@ -1,6 +1,9 @@
 <?php
-require_once('koneksi.php');
+
 session_start();
+if (!isset($_SESSION['username'])) {
+    header('location: index.php');
+}else {
 ?>
 
 <!doctype html>
@@ -66,3 +69,7 @@ session_start();
 </body>
 
 </html>
+
+<?php
+}
+?>
