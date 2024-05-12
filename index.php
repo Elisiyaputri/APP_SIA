@@ -63,6 +63,6 @@ if (isset($_SESSION['username'])) {
 </html>
 
 <?php
-}
 session_destroy();
+}
 ?>

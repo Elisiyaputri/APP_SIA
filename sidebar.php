@@ -74,11 +74,9 @@ $hak_akses = isset($_SESSION['hak_akses']) ? $_SESSION['hak_akses'] : '';
     </li>
     <?php endif; ?>
 
-    <?php if ($hak_akses == 'admin' || $hak_akses == 'pimpinan'): ?>
     <li class="nav-item">
         <a href="?modul=jurnal" class="nav-link text-white <?= $modul == 'jurnal' ? 'active' : ''; ?>">
             <i class="bi bi-clipboard2-data-fill me-2"></i>Jurnal Umum
         </a>
     </li>
-    <?php endif; ?>
 </ul>
