@@ -1,19 +1,21 @@
+<?php
+require_once('koneksi.php');
+?>
 <div class="card mb-3">
-
     <div class="card-body">
-        <form action="" method="post">
+        <form action="modul/akun/aksi_akun.php?act=insert" method="post">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label class="form-label" for="nama_akun">Nama Akun</label>
-                    <input type="text" class="form-control" name="nama_akun">
+                    <input type="text" class="form-control" name="nama_akun" required>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label" for="jenis_akun">Jenis Akun</label>
-                    <input type="text" class="form-control" name="jenis_akun">
+                    <input type="text" class="form-control" name="jenis_akun" required>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label" for="type_saldo">Type Saldo</label>
-                    <select class="form-select" name="type_saldo">
+                    <label class="form-label" for="tipe_saldo">Type Saldo</label>
+                    <select class="form-select" name="tipe_saldo" required>
                         <option value="debit">Debit</option>
                         <option value="kredit">Kredit</option>
                     </select>
@@ -21,8 +23,16 @@
             </div>
             <hr class="text-secondary">
             <div class="text-end">
+                <span class="me-auto text-gray">
+                    <?php
+                    if(isset($_SESSION['pesan'])){
+                        echo $_SESSION['pesan'];
+                        unset($_SESSION['pesan']);
+                    }
+                    ?>
+                </span>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>
@@ -44,113 +54,78 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    $query = "SELECT * FROM tbl_akun";
+                    $exec = mysqli_query($koneksi, $query);
+                    $no = 0;
+                    while ($data = mysqli_fetch_array($exec)) {
+                        $no++;
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>Kas</td>
-                        <td>Aset</td>
-                        <td>Debit</td>
+                        <td><?= $no; ?></td>
+                        <td><?= $data['nama_akun']; ?></td>
+                        <td><?= $data['jenis_akun']; ?></td>
+                        <td><?= $data['tipe_saldo']; ?></td>
                         <td>
-                            <a href="#editAkun" class="text-decoration-none" data-bs-toggle="modal">
+                            <a href="#editAkun<?= $data['akun_id']; ?>" class="text-decoration-none"
+                                data-bs-toggle="modal">
                                 <i class="bi bi-pencil-square text-success"></i>
                             </a>
-                            <a href="" class="text-decoration-none">
+                            <a href="http:modul/akun/aksi_akun.php?act=delete&id=<?= $data['akun_id']; ?>"
+                                class="text-decoration-none"
+                                onclick="return confirm('Yakin ingin menghapus data ini?')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
-                        <!-- Modal -->
-                        <div class="modal fade" id="editAkun" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <form action="" method="post">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Akun</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                    </tr>
+                    <!-- Modal Edit -->
+                    <div class="modal fade" id="editAkun<?= $data['akun_id'];?>" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <form action="http:modul/akun/aksi_akun.php?act=update&id=<?= $data['akun_id']; ?>"
+                            method="post">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Akun</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="nama_akun">Nama Akun</label>
+                                            <input type="text" class="form-control" name="nama_akun"
+                                                aria-describedby="nama_akun" value="<?= $data['nama_akun'];?>" required>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="nama_akun">Nama Akun</label>
-                                                <input type="text" class="form-control" name="nama_akun" value="Kas">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="jenis_akun">Jenis Akun</label>
-                                                <input type="text" class="form-control" name="jenis_akun" value="Aset">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="type_saldo">Type Saldo</label>
-                                                <select class="form-select" name="type_saldo">
-                                                    <option value="debit" selected>Debit</option>
-                                                    <option value="kredit">Kredit</option>
-                                                </select>
-                                            </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="jenis_akun">Jenis Akun</label>
+                                            <input type="text" class="form-control" name="jenis_akun"
+                                                aria-describedby="jenis_akun" value="<?= $data['jenis_akun'];?>"
+                                                required>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="tipe_saldo">Type Saldo</label>
+                                            <select class="form-select" name="tipe_saldo" required>
+                                                <option value="debit"
+                                                    <?= $data['tipe_saldo'] == 'debit' ? 'selected' : ''; ?>>Debit
+                                                </option>
+                                                <option value="kredit"
+                                                    <?= $data['tipe_saldo'] == 'kredit' ? 'selected' : ''; ?>>Kredit
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Piutang Usaha</td>
-                        <td>Aset</td>
-                        <td>Debit</td>
-                        <td>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-pencil-square text-success"></i>
-                            </a>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Perlengkapan</td>
-                        <td>Aset</td>
-                        <td>Debit</td>
-                        <td>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-pencil-square text-success"></i>
-                            </a>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Hutang Usaha</td>
-                        <td>Kewajiban</td>
-                        <td>Kredit</td>
-                        <td>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-pencil-square text-success"></i>
-                            </a>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Modal</td>
-                        <td>Ekuitas</td>
-                        <td>Kredit</td>
-                        <td>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-pencil-square text-success"></i>
-                            </a>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
+                            </div>
+                        </form>
+                    </div>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
