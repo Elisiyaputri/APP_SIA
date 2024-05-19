@@ -13,10 +13,10 @@ if(isset($_POST['submit'])){
             $exec = mysqli_query($koneksi,$query);
              if($exec){
                 $_SESSION['pesan'] = "Data profile telah diperbaharui";
-                header('location:http://localhost/app_sia/dashboard.php?modul=profile');
+                header('location:../../dashboard.php?modul=profile');
              }else{
                 $_SESSION['pesan'] = "Data profile gagal diperbaharui";
-                header('location:http://localhost/app_sia/dashboard.php?modul=profile');
+                header('location:../../dashboard.php?modul=profile');
              } 
             }else{
                 $query = "SELECT * FROM tbl_pengguna WHERE username='$username'";
@@ -29,15 +29,15 @@ if(isset($_POST['submit'])){
                         $exec = mysqli_query($koneksi, $query);
                         if($exec){
                            $_SESSION['pesan'] = "Data profile telah diperbaharui";
-                           header('location:http://localhost/app_sia/dashboard.php?modul=profile');
+                           header('location:../../dashboard.php?modul=profile');
                          }
                         }else{
                             $_SESSION['pesan'] = "Password baru tidak sesuai";
-                            header('location:http://localhost/app_sia/dashboard.php?modul=profile');
+                            header('location:../../dashboard.php?modul=profile');
                          }
                         }else{
                             $_SESSION['pesan'] = "Password lama tidak sesuai";
-                            header('location:http://localhost/app_sia/dashboard.php?modul=profile');  
+                            header('location:../../dashboard.php?modul=profile');  
                       }  
                     }
                 }else{
