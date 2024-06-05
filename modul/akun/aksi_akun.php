@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('../../koneksi.php');
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
     $nama_akun = $_POST['nama_akun'];
     $jenis_akun = $_POST['jenis_akun'];
     $tipe_saldo = $_POST['tipe_saldo'];   
@@ -45,6 +45,5 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
-//batas
 
 ?>
