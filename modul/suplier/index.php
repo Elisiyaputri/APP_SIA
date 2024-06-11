@@ -1,9 +1,13 @@
+<?php
+require_once('koneksi.php');
+?>
 <div class="card mb-3">
     <div class="card-body">
+    <form action="modul/suplier/aksi_suplier.php?act=insert" method="post">
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="nama_suplier" class="form-label">Nama Suplier</label>
-                <input type="text" class="form-control" name="nama_suplier">
+                <label for="nama_supplier" class="form-label">Nama Suplier</label>
+                <input type="text" class="form-control" name="nama_supplier">
             </div>
             <div class="col-md-6">
                 <label for="alamat" class="form-label">Alamat</label>
@@ -22,10 +26,19 @@
         </div>
         <hr>
         <div class="row">
-            <div class="text-end">
+            <div class="d-flex">
+            <span class="me-auto text-gray">
+                    <?php
+                    if(isset($_SESSION['pesan'])){
+                        echo $_SESSION['pesan'];
+                        unset($_SESSION['pesan']);
+                    }
+                    ?>
+                </span>
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
             </div>
+          </form>
         </div>
     </div>
 </div>
@@ -47,23 +60,34 @@
                     </tr>
                 </thead>
                 <tbody>
+                   <?php
+                    $query = "SELECT * FROM tbl_supplier";
+                    $exec = mysqli_query($koneksi, $query);
+                    $no = 0;
+                    while ($data = mysqli_fetch_array($exec)) {
+                        $no++;
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>PT Suplier Jaya</td>
-                        <td>Gedung Mayora Jl.Tomang</td>
-                        <td>0216710276</td>
-                        <td>ptsuplier@gmail.com</td>
+                        <td><?= $no; ?></td>
+                        <td><?= $data['nama_supplier']; ?></td>
+                        <td><?= $data['alamat']; ?></td>
+                        <td><?= $data['telepon']; ?></td>
+                        <td><?= $data['email']; ?></td>
                         <td>
-                            <a href="#editSuplier" class="text-decoration-none" data-bs-toggle="modal">
+                            <a href="#editSupplier<?= $data['supplier_id']; ?>" class="text-decoration-none"
+                                data-bs-toggle="modal">
                                 <i class="bi bi-pencil-square text-success"></i>
                             </a>
-                            <a href="" class="text-decoration-none">
+                            <a href="modul/suplier/aksi_suplier.php?act=delete&id=<?= $data['supplier_id']; ?>"
+                                class="text-decoration-none">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
+                    </tr>
                         <!--Modal-->
-                        <div class="modal fade" id="editSuplier" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="editSupplier<?= $data['supplier_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
+                            <form action="modul/suplier/aksi_suplier.php?act=update&id=<?= $data['supplier_id']; ?>" method="post">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -73,49 +97,37 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <label for="nama_suplier" class="form-label">Nama Suplier</label>
-                                            <input type="text" class="form-control" name="nama_suplier"
-                                                value="PT Suplier Jaya" disabled>
+                                            <label for="nama_supplier" class="form-label">Nama Suplier</label>
+                                            <input type="text" class="form-control" name="nama_supplier"
+                                                value="<?= $data['nama_supplier']; ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label"> Alamat</label>
                                             <input type="text" class="form-control" name="alamat"
-                                                value="Gedung Mayora Jl.Tomang">
+                                                value="<?= $data['alamat']; ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="telepon" class="form-label">Telepon</label>
-                                            <input type="number" class="form-control" name="telepon" value="0215710276">
+                                            <input type="number" class="form-control" name="telepon" value="<?= $data['telepon']; ?>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" name="email"
-                                                value="ptsuplier@gmail.com">
+                                                value="<?= $data['email']; ?>">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Simpan</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </div>
                             </div>
+                          </form>
                         </div>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>CV Maju Bersama</td>
-                        <td>Jl.Surya Mandala</td>
-                        <td>02166453</td>
-                        <td>majubersama@gmail.com</td>
-                        <td>
-                            <a href="" class="text-decoration-none">
-                                <i class="bi bi-pencil-square text-success"></i>
-                            </a>
-                            <a href="" class="text-decoration-none">
-                                <i class=" bi bi-trash text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
