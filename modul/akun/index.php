@@ -22,17 +22,19 @@ require_once('koneksi.php');
                 </div>
             </div>
             <hr class="text-secondary">
-            <div class="text-end">
-                <span class="me-auto text-gray">
-                    <?php
-                    if(isset($_SESSION['pesan'])){
-                        echo $_SESSION['pesan'];
-                        unset($_SESSION['pesan']);
-                    }
-                    ?>
-                </span>
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+            <div class="row">
+                <div class="d-flex ">
+                    <span class="me-auto text-grey">
+                        <?php
+                        if (isset($_SESSION['pesan'])) {
+                            echo $_SESSION['pesan'];
+                            unset($_SESSION['pesan']);
+                        }
+                        ?>
+                    </span>
+                    <button type="reset" class="btn btn-secondary me-2">Reset</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                </div>
             </div>
         </form>
     </div>
@@ -71,58 +73,59 @@ require_once('koneksi.php');
                                 data-bs-toggle="modal">
                                 <i class="bi bi-pencil-square text-success"></i>
                             </a>
-                            <a href="http:modul/akun/aksi_akun.php?act=delete&id=<?= $data['akun_id']; ?>"
+                            <a href="modul/akun/aksi_akun.php?act=delete&id=<?= $data['akun_id']; ?>"
                                 class="text-decoration-none"
                                 onclick="return confirm('Yakin ingin menghapus data ini?')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
-                    </tr>
-                    <!-- Modal Edit -->
-                    <div class="modal fade" id="editAkun<?= $data['akun_id'];?>" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form action="http:modul/akun/aksi_akun.php?act=update&id=<?= $data['akun_id']; ?>"
-                            method="post">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Akun</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="nama_akun">Nama Akun</label>
-                                            <input type="text" class="form-control" name="nama_akun"
-                                                aria-describedby="nama_akun" value="<?= $data['nama_akun'];?>" required>
+                        <!-- Modal Edit -->
+                        <div class="modal fade" id="editAkun<?= $data['akun_id'];?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form action="modul/akun/aksi_akun.php?act=update&id=<?= $data['akun_id']; ?>"
+                                method="post">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Akun</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="jenis_akun">Jenis Akun</label>
-                                            <input type="text" class="form-control" name="jenis_akun"
-                                                aria-describedby="jenis_akun" value="<?= $data['jenis_akun'];?>"
-                                                required>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="nama_akun">Nama Akun</label>
+                                                <input type="text" class="form-control" name="nama_akun"
+                                                    aria-describedby="nama_akun" value="<?= $data['nama_akun'];?>"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="jenis_akun">Jenis Akun</label>
+                                                <input type="text" class="form-control" name="jenis_akun"
+                                                    aria-describedby="jenis_akun" value="<?= $data['jenis_akun'];?>"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="tipe_saldo">Type Saldo</label>
+                                                <select class="form-select" name="tipe_saldo" required>
+                                                    <option value="debit"
+                                                        <?= $data['tipe_saldo'] == 'debit' ? 'selected' : ''; ?>>Debit
+                                                    </option>
+                                                    <option value="kredit"
+                                                        <?= $data['tipe_saldo'] == 'kredit' ? 'selected' : ''; ?>>Kredit
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="tipe_saldo">Type Saldo</label>
-                                            <select class="form-select" name="tipe_saldo" required>
-                                                <option value="debit"
-                                                    <?= $data['tipe_saldo'] == 'debit' ? 'selected' : ''; ?>>Debit
-                                                </option>
-                                                <option value="kredit"
-                                                    <?= $data['tipe_saldo'] == 'kredit' ? 'selected' : ''; ?>>Kredit
-                                                </option>
-                                            </select>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    </tr>
                     <?php
                     }
                     ?>
