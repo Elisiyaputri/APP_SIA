@@ -1,22 +1,25 @@
+<?php
+require_once('koneksi.php');
+?>
 <div class="card mb-3">
     <div class="card-body">
-        <form action="" method="post">
+        <form action="modul/pembayaran/aksi_pembayaran.php?act=insert" method="post">
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="invoice" class="form-label">Invoice</label>
-                    <input type="text" class="form-control" name="invoice">
+                    <label for="invoice_pembayaran" class="form-label">Invoice</label>
+                    <input type="text" class="form-control" name="invoice_pembayaran">
                 </div>
                 <div class="col-md-6">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control" name="tanggal">
+                    <label for="tanggal_pembayaran" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control" name="tanggal_pembayaran">
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="total" class="form-label">Total</label>
+                    <label for="total_pembayaran" class="form-label">Total</label>
                     <div class="input-group">
                         <span class="input-group-text">Rp.</span>
-                    <input type="number" class="form-control" name="total">
+                        <input type="number" class="form-control" name="total_pembayaran">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -25,9 +28,19 @@
                 </div>
             </div>
             <hr class="text-secondary">
-            <div class="text-end">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="row">
+                <div class="d-flex ">
+                    <span class="me-auto text-grey">
+                        <?php
+                        if (isset($_SESSION['pesan'])) {
+                            echo $_SESSION['pesan'];
+                            unset($_SESSION['pesan']);
+                        }
+                        ?>
+                    </span>
+                    <button type="reset" class="btn btn-secondary me-2">Reset</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                </div>
             </div>
         </form>
     </div>
@@ -50,78 +63,82 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    $query = "SELECT * FROM tbl_pembayaran";
+                    $exec = mysqli_query($koneksi, $query);
+                    $no = 0;
+                    while ($data = mysqli_fetch_array($exec)) {
+                        $no++;
+                    ?>
                     <tr>
-                    <td>1</td>
-                    <td>BL110324</td>
-                    <td>11/03/2024</td>
-                    <td>RP. 1.000,000,-</td>
-                    <td>Pembayaran Tagihan Indihome</td>
-                    <td>
-                        <a href="#editPembayaran" class="text-decoration-none" data-bs-toggle="modal">
-                           <i class="bi bi-pencil-square text-success"></i>
-                        </a>
-                        <a href="" class="text-decoration-none" >
-                           <i class="bi bi-trash text-danger"></i>
-                        </a>
-                    </td>
-                    <!--Modal-->
-                    <div class="modal fade" id="editPembayaran" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form action="" method="post">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Pembayaran</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label for="invoice" class="form-label">Invoice</label>
-                                                <input type="text" class="form-control" name="invoice" value="BL110324" disabled>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="tanggal" class="form-label">Tanggal</label>
-                                                <input type="date" class="form-control" name="tanggal" value="2024-11-03">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                              <label for="total" class="form-label">Total</label>
-                                              <div class="input-group">
-                                                    <span class="input-group-text">Rp.</span>
-                                                <input type="number" class="form-control" name="total" value="1000000">
-                                              </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="keterangan" class="form-control" name="keterangan" value="Pembayaran Tagihan Indihome">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Simpan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>BL100324</td>
-                    <td>10/03/2024</td>
-                    <td>Rp. 900.000,-</td>
-                    <td>Pembayaran Tagihan Listrik</td>
-                    <td>
-                            <a href="" class="text-decoration-none">
+                        <td><?= $no; ?></td>
+                        <td><?= $data['invoice_pembayaran']; ?></td>
+                        <td><?= $data['tanggal_pembayaran']; ?></td>
+                        <td>Rp. <?= number_format($data['total_pembayaran'],0,'.','.') ?>,-</td>
+                        <td><?= $data['keterangan']; ?></td>
+                        <td>
+                            <a href="#editPembayaran<?= $data['pembayaran_id']; ?>" class="text-decoration-none"
+                                data-bs-toggle="modal">
                                 <i class="bi bi-pencil-square text-success"></i>
                             </a>
-                            <a href="" class="text-decoration-none">
-                                <i class=" bi bi-trash text-danger"></i>
+                            <a href="modul/pembayaran/aksi_pembayaran.php?act=delete&id=<?= $data['pembayaran_id']; ?>"
+                                class="text-decoration-none"
+                                onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                <i class="bi bi-trash text-danger"></i>
                             </a>
-                    </td>
-                   </tr>
+                        </td>
+                        <!--Modal-->
+                        <div class="modal fade" id="editPembayaran<?= $data['pembayaran_id']; ?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form
+                                action="modul/pembayaran/aksi_pembayaran.php?act=update&id=<?= $data['pembayaran_id']; ?>"
+                                method="post">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Pembayaran
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="invoice_pembayaran" class="form-label">Invoice</label>
+                                                <input type="text" class="form-control" name="invoice_pembayaran"
+                                                    value="<?= $data['invoice_pembayaran']; ?>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="tanggal_pembayaran" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control" name="tanggal_pembayaran"
+                                                    value="<?= $data['tanggal_pembayaran']; ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="total_pembayaran" class="form-label">Total</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Rp.</span>
+                                                    <input type="number" class="form-control" name="total_pembayaran"
+                                                        value="<?= $data['total_pembayaran']; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="keterangan" class="form-label">Keterangan</label>
+                                                <input type="keterangan" class="form-control" name="keterangan"
+                                                    value="<?= $data['keterangan']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
